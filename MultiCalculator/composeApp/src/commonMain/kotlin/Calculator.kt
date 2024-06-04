@@ -1,4 +1,8 @@
+package org.example.multicalculator
 class Calculator {
+
+   private val platform = getPlatform()
+
    fun Add(left: Double, right: Double): Double{
    return left + right
    }
