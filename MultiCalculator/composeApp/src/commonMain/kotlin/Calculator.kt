@@ -1,4 +1,7 @@
 package org.example.multicalculator
+
+import getPlatform
+
 class Calculator {
 
    private val platform = getPlatform()
@@ -16,9 +19,6 @@ class Calculator {
    }
 
    fun Divide(left: Double, right:Double): Double{
-      if(right == 0.0){
-         return "undefined"
-      }
       return left / right
    }
 }
