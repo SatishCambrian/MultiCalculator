@@ -15,8 +15,11 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +47,21 @@ fun AppAndroidPreview() {
 @Composable
 fun CalcView(){
     val displayText = remember { mutableStateOf("0")}
+    var leftNumber by remember { mutableStateOf(0) }
+    var rightNumber by rememberSaveable { mutableStateOf(0)}
+    var operation by rememberSaveable { mutableStateOf("")}
+    var complete by rememberSaveable { mutableStateOf(false)}
+    //var displayText by rememberSaveable { mutableStateOf("") }
+
+    if(complete && operation.isNotEmpty()){
+        var answer = 0
+        when (operation){
+            "+" -> answer = leftNumber +rightNumber
+            "-" -> answer = leftNumber -rightNumber
+            "*" -> answer = leftNumber *rightNumber
+            "/" -> answer = if(rightNumber !=0) leftNumber / rightNumber else 0
+        }
+    }
 
     Column(modifier = Modifier.background(Color.LightGray)){
         Row{
@@ -67,6 +85,7 @@ fun CalcView(){
             }
         }
     }
+
 }
 
 @Composable
