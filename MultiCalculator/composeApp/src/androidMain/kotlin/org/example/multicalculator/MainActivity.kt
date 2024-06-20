@@ -27,12 +27,14 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun CalcView() {
+    //define state variables to hold the numbers, operation and display text
     var leftNumber by rememberSaveable { mutableStateOf(0) }
     var rightNumber by rememberSaveable { mutableStateOf(0) }
     var operation by rememberSaveable { mutableStateOf("") }
     var complete by rememberSaveable { mutableStateOf(false) }
     var displayText by rememberSaveable { mutableStateOf("0") }
 
+    //result calculation based on selected operation
     if (complete && operation.isNotEmpty()) {
         var answer = 0
         when (operation) {
@@ -47,9 +49,9 @@ fun CalcView() {
     } else {
         displayText = leftNumber.toString()
     }
-
+    // function to handle number button press
     fun numberPress(btnNum: Int) {
-        if (complete) {
+        if (complete) {//Reset if calculation is complete
             leftNumber = 0
             rightNumber = 0
             operation = ""
@@ -61,17 +63,17 @@ fun CalcView() {
             leftNumber = leftNumber * 10 + btnNum
         }
     }
-
+    //function to handle operation button press
     fun operationPress(op: String) {
         if (!complete) {
             operation = op
         }
     }
-
+    //function to handle equals button press
     fun equalsPress() {
         complete = true
     }
-
+    // UI for Calculator
     Column(modifier = Modifier.background(Color.LightGray)) {
         Row {
             CalcDisplay(displayText)
@@ -96,6 +98,7 @@ fun CalcView() {
     }
 }
 
+//Function to create a row of number buttons
 @Composable
 fun CalcRow(onPress: (number: Int) -> Unit, startNum: Int, numButtons: Int) {
     val endNum = startNum + numButtons
